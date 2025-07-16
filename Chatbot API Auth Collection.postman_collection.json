@@ -1,0 +1,778 @@
+{
+    "info": {
+        "_postman_id": "56353401-fc1b-4946-ab16-8f7f2daafb0e",
+        "name": "Chatbot API Auth Collection",
+        "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+        "_exporter_id": "45437714"
+    },
+    "item": [
+        {
+            "name": "Register",
+            "item": [
+                {
+                    "name": "Positive",
+                    "item": [
+                        {
+                            "name": "Register with valid data",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}"
+                                },
+                                "url": "{{base_url}}register"
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Negative",
+                    "item": [
+                        {
+                            "name": "Register with existing email",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}"
+                                },
+                                "url": "{{base_url}}register"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Register with missing fields",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"email\": \"testuser@example.com\"\n}"
+                                },
+                                "url": "{{base_url}}register"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Register with invalid email",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"not-an-email\",\n  \"password\": \"password123\"\n}"
+                                },
+                                "url": "{{base_url}}register"
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Register",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}"
+                        },
+                        "url": "{{base_url}}register"
+                    },
+                    "response": []
+                }
+            ]
+        },
+        {
+            "name": "Login",
+            "item": [
+                {
+                    "name": "Positive",
+                    "item": [
+                        {
+                            "name": "Login with correct credentials",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}"
+                                },
+                                "url": "{{base_url}}login"
+                            },
+                            "response": [],
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "type": "text/javascript",
+                                        "exec": [
+                                            "var jsonData = pm.response.json();",
+                                            "if (jsonData.data && jsonData.data.access_token) {",
+                                            "    pm.environment.set(\"access_token\", jsonData.data.access_token);",
+                                            "}"
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Negative",
+                    "item": [
+                        {
+                            "name": "Login with wrong password",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"email\": \"testuser@example.com\",\n  \"password\": \"wrongpassword\"\n}"
+                                },
+                                "url": "{{base_url}}login"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Login with non-existent email",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"email\": \"doesnotexist@example.com\",\n  \"password\": \"password123\"\n}"
+                                },
+                                "url": "{{base_url}}login"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Login with missing fields",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"email\": \"testuser@example.com\"\n}"
+                                },
+                                "url": "{{base_url}}login"
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}"
+                        },
+                        "url": "{{base_url}}login"
+                    },
+                    "response": [],
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "type": "text/javascript",
+                                "exec": [
+                                    "var jsonData = pm.response.json();",
+                                    "if (jsonData.data && jsonData.data.access_token) {",
+                                    "    pm.environment.set(\"access_token\", jsonData.data.access_token);",
+                                    "}"
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Chatbot Message",
+            "item": [
+                {
+                    "name": "Positive",
+                    "item": [
+                        {
+                            "name": "Send valid message with token and conversation_id",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"message\": \"Hello\",\n  \"conversation_id\": \"{{conversation_id}}\"\n}"
+                                },
+                                "url": "{{base_url}}chat/message"
+                            },
+                            "response": [],
+                            "event": [
+                                {
+                                    "listen": "test",
+                                    "script": {
+                                        "type": "text/javascript",
+                                        "exec": [
+                                            "var data = pm.response.json().data;",
+                                            "if (data && data.conversation_id) {",
+                                            "    pm.environment.set(\"conversation_id\", data.conversation_id);",
+                                            "}",
+                                            "if (data && data.answer) {",
+                                            "    pm.environment.set(\"bot_answer\", data.answer);",
+                                            "}"
+                                        ]
+                                    }
+                                }
+                            ],
+                            "description": "Sends a message to the chatbot. The response will have answer, ticket_created, ticket_id, and conversation_id."
+                        },
+                        {
+                            "name": "Send valid message with token (new conversation)",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"message\": \"Hello\"\n}"
+                                },
+                                "url": "{{base_url}}chat/message"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Send message 'create ticket' (should create ticket)",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"message\": \"create ticket\"\n}"
+                                },
+                                "url": "{{base_url}}chat/message"
+                            },
+                            "response": [],
+                            "description": "Should return ticket_created: true."
+                        },
+                        {
+                            "name": "Send message 'support' (should create ticket)",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"message\": \"support\"\n}"
+                                },
+                                "url": "{{base_url}}chat/message"
+                            },
+                            "response": [],
+                            "description": "Should return ticket_created: true."
+                        },
+                        {
+                            "name": "Send message 'gibberishthatbotdoesnotunderstand' (should create ticket if fallback)",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"message\": \"gibberishthatbotdoesnotunderstand\"\n}"
+                                },
+                                "url": "{{base_url}}chat/message"
+                            },
+                            "response": [],
+                            "description": "Should return ticket_created: true if fallback logic triggers."
+                        }
+                    ]
+                },
+                {
+                    "name": "Negative",
+                    "item": [
+                        {
+                            "name": "Send message without token",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"message\": \"Hello\",\n  \"conversation_id\": \"{{conversation_id}}\"\n}"
+                                },
+                                "url": "{{base_url}}chat/message"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Send message with empty body",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{}"
+                                },
+                                "url": "{{base_url}}chat/message"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Send message 'Hello' (should NOT create ticket)",
+                            "request": {
+                                "method": "POST",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "body": {
+                                    "mode": "raw",
+                                    "raw": "{\n  \"message\": \"Hello\"\n}"
+                                },
+                                "url": "{{base_url}}chat/message"
+                            },
+                            "response": [],
+                            "description": "Should return ticket_created: false."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Chat History",
+            "item": [
+                {
+                    "name": "Positive",
+                    "item": [
+                        {
+                            "name": "Get chat history with token and conversation_id",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}chat/history?conversation_id={{conversation_id}}",
+                                    "protocol": "http",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "8000",
+                                    "path": [
+                                        "api",
+                                        "chat",
+                                        "history"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "conversation_id",
+                                            "value": "{{conversation_id}}"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get chat history with token (all conversations)",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}chat/history",
+                                    "protocol": "http",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "8000",
+                                    "path": [
+                                        "api",
+                                        "chat",
+                                        "history"
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Negative",
+                    "item": [
+                        {
+                            "name": "Get chat history without token",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{base_url}}chat/history?conversation_id={{conversation_id}}",
+                                    "protocol": "http",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "8000",
+                                    "path": [
+                                        "api",
+                                        "chat",
+                                        "history"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "conversation_id",
+                                            "value": "{{conversation_id}}"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "Get chat history with invalid conversation_id",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": {
+                                    "raw": "{{base_url}}chat/history?conversation_id=invalid-uuid",
+                                    "protocol": "http",
+                                    "host": [
+                                        "localhost"
+                                    ],
+                                    "port": "8000",
+                                    "path": [
+                                        "api",
+                                        "chat",
+                                        "history"
+                                    ],
+                                    "query": [
+                                        {
+                                            "key": "conversation_id",
+                                            "value": "invalid-uuid"
+                                        }
+                                    ]
+                                }
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Tickets",
+            "item": [
+                {
+                    "name": "Positive",
+                    "item": [
+                        {
+                            "name": "List tickets with token",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": "{{base_url}}tickets"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "View ticket with token",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": "{{base_url}}tickets/1"
+                            },
+                            "response": []
+                        }
+                    ]
+                },
+                {
+                    "name": "Negative",
+                    "item": [
+                        {
+                            "name": "List tickets without token",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": "{{base_url}}tickets"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "View ticket without token",
+                            "request": {
+                                "method": "GET",
+                                "header": [],
+                                "url": "{{base_url}}tickets/1"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "View ticket not owned by user",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": "{{base_url}}tickets/9999"
+                            },
+                            "response": []
+                        },
+                        {
+                            "name": "View non-existent ticket",
+                            "request": {
+                                "method": "GET",
+                                "header": [
+                                    {
+                                        "key": "Authorization",
+                                        "value": "Bearer {{access_token}}"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "url": "{{base_url}}tickets/999999"
+                            },
+                            "response": []
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
