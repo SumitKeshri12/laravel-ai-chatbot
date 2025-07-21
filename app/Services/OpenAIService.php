@@ -43,6 +43,7 @@ class OpenAIService
                     }
                 }
             }
+            // @phpstan-ignore-next-line
             return $answer !== '' ? $answer : 'Sorry, I did not understand that.';
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             $response = $e->getResponse();

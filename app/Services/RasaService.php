@@ -15,6 +15,9 @@ class RasaService
         $this->client = new Client();
     }
 
+    /**
+     * @return array<int, array<string, mixed>>
+     */
     public function sendMessage(string $userId, string $message): array
     {
         $response = $this->client->post($this->endpoint, [

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\User;
 
 class Ticket extends Model
 {
@@ -14,7 +16,10 @@ class Ticket extends Model
         'answer',
     ];
 
-    public function user()
+    /**
+     * @return BelongsTo<User, static>
+     */
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

@@ -8,17 +8,18 @@ use App\Models\Chat;
 use Illuminate\Support\Str;
 use App\Services\OllamaService;
 use App\Jobs\ProcessChatMessage;
+use Illuminate\Http\JsonResponse;
 
 class ChatbotController extends Controller
 {
-    protected $ollamaService;
+    protected OllamaService $ollamaService;
 
     public function __construct(OllamaService $ollamaService)
     {
         $this->ollamaService = $ollamaService;
     }
 
-    public function sendMessage(Request $request)
+    public function sendMessage(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'message' => 'required|string',
@@ -78,7 +79,7 @@ class ChatbotController extends Controller
         ]);
     }
 
-    public function getChatHistory(Request $request)
+    public function getChatHistory(Request $request): JsonResponse
     {
         $userId = Auth::id();
         $conversationId = $request->input('conversation_id');

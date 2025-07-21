@@ -6,10 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Laravel\Passport\Contracts\OAuthenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements OAuthenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    /**
+     * @use \Illuminate\Database\Eloquent\Factories\HasFactory<User>
+     */
+    use HasFactory;
+    use Notifiable;
 
     protected $fillable = [
         'name',
